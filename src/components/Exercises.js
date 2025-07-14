@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Exercises() {
+function Exercises({exercises, setExercises, bodyPart}) {
   return (
     <div>Exercises</div>
   )

@@ -1,16 +1,36 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Button, Stack, TextField, Typography} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
+import {exerciseOptions, fetchData} from '../utils/fetchData'
+import HorizontalScrollbar from './HorizontalScrollbar'
 
-function SearchExercises() {
+function SearchExercises(setExercises, bodyPart, setBodyPart) {
   const [search, setSearch] = useState('')
+  const [bodyParts, setBodyParts] = useState([])
+  
   const navigate = useNavigate()
 
-  const handleSearch = () => {
-    if(search) {
-      navigate(`/exercises/${search}`)
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      const bodyPartsData = await fetchData(`${exerciseOptions.url}/bodyPartList`, exerciseOptions)
+      setBodyParts(['all', ...bodyPartsData])
     }
-  } 
+    fetchExercisesData()
+  }, [])
+
+  const handleSearch = async () => {
+    if(search) {
+      //navigate(`/exercises/${search}`)
+      const exercisesData = await fetchData(exerciseOptions.url, exerciseOptions)
+      console.log(exercisesData)
+      const searchedExercises = exercisesData.filter(
+        (exercise) => exercise.name.toLowerCase().includes(search) || exercise.target.toLowerCase().includes(search) || exercise.equipment.toLowerCase().includes(search) || exercise.bodyPart.toLowerCase().includes(search)
+      )
+      setSearch('')
+      setExercises(searchedExercises)
+      navigate(`/exercises/${searchedExercises}`)
+    }
+  }   
   
 
   return (
@@ -31,6 +51,10 @@ function SearchExercises() {
         <Button className="search-btn" sx={{backgroundColor: '#FF2625', color: '#fff', textTransform: 'none', width: {lg: '173px', xs: '80px'}, fontSize: {lg: '20px', xs: '14px'}, height: '56px', position: 'absolute', right: '0px', top: '0px'}}
          onClick={handleSearch}
          >Search</Button>
+         <Box sx={{position: 'relative', width:'100%', p:'20px'}}>
+          <HorizontalScrollbar data={bodyParts} bodyPart={bodyPart} setBodyPart={setBodyPart}/> 
+        
+         </Box>
       </Box>
     </Stack>
   )
