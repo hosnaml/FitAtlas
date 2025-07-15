@@ -13,6 +13,26 @@ function Exercises({exercises, setExercises, bodyPart}) {
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage
   const currentExercises = exercises.slice(indexOfFirstExercise, indexOfLastExercise)
   
+  // Add useEffect to fetch exercises based on bodyPart
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      let exercisesData = []
+      
+      if (bodyPart === 'all') {
+        // Fetch all exercises
+        exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions)
+      } else {
+        // Fetch exercises for specific body part
+        exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`, exerciseOptions)
+      }
+      
+      setExercises(exercisesData)
+      setCurrentPage(1) // Reset to first page when bodyPart changes
+    }
+
+    fetchExercisesData()
+  }, [bodyPart, setExercises])
+  
   const paginate = (e, value) => {
     setCurrentPage(value)
     window.scrollTo({top: 1800, left: 100, behavior: 'smooth'})

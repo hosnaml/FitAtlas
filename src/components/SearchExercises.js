@@ -21,16 +21,49 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const handleSearch = async () => {
     if (search) {
       const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
-
       const searchedExercises = exercisesData.filter(
-        (item) => item.name.toLowerCase().includes(search)
-               || item.target.toLowerCase().includes(search)
-               || item.equipment.toLowerCase().includes(search)
-               || item.bodyPart.toLowerCase().includes(search),
+        (item) => {
+          const searchLower = search.toLowerCase();
+          
+          // Basic fields (original search)
+          const nameMatch = item.name.toLowerCase().includes(searchLower);
+          const targetMatch = item.target.toLowerCase().includes(searchLower);
+          const equipmentMatch = item.equipment.toLowerCase().includes(searchLower);
+          const bodyPartMatch = item.bodyPart.toLowerCase().includes(searchLower);
+          
+          // Enhanced search - search in more fields
+          const difficultyMatch = item.difficulty?.toLowerCase().includes(searchLower);
+          const categoryMatch = item.category?.toLowerCase().includes(searchLower);
+          
+          // Search in secondary muscles array
+          const secondaryMuscleMatch = item.secondaryMuscles?.some(muscle => 
+            muscle.toLowerCase().includes(searchLower)
+          );
+          
+          // Search in instructions array (first few words of each instruction)
+          const instructionsMatch = item.instructions?.some(instruction => 
+            instruction.toLowerCase().includes(searchLower)
+          );
+          
+          // Search in description
+          const descriptionMatch = item.description?.toLowerCase().includes(searchLower);
+          
+          // Word-based search (split search term into words)
+          const searchWords = searchLower.split(' ').filter(word => word.length > 0);
+          const wordMatch = searchWords.some(word => 
+            item.name.toLowerCase().includes(word) ||
+            item.target.toLowerCase().includes(word) ||
+            item.bodyPart.toLowerCase().includes(word) ||
+            item.equipment.toLowerCase().includes(word)
+          );
+          
+          return nameMatch || targetMatch || equipmentMatch || bodyPartMatch || 
+                 difficultyMatch || categoryMatch || secondaryMuscleMatch || 
+                 instructionsMatch || descriptionMatch || wordMatch;
+        }
       );
 
       window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
-
       setSearch('');
       setExercises(searchedExercises);
     }
