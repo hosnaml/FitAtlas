@@ -28,7 +28,7 @@ function Exercises({exercises, setExercises, bodyPart}) {
       </Stack>
       <Stack mt="100px" alignItems="center" width="100%">
         {exercises.length > 9 && (
-          <Pagination color="standard" shape="rounded" defaultPage={1} count={Math.ceil(exercises.length / 9)} page={page} onChange={paginate} size="large" />
+          <Pagination color="standard" shape="rounded" defaultPage={1} count={Math.ceil(exercises.length / 9)} page={currentPage} onChange={paginate} size="large" />
         )}
       </Stack>
     </Box>

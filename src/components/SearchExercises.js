@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import {exerciseOptions, fetchData} from '../utils/fetchData'
 import HorizontalScrollbar from './HorizontalScrollbar'
 
-function SearchExercises(setExercises, bodyPart, setBodyPart) {
+function SearchExercises({setExercises, bodyPart, setBodyPart}) {
   const [search, setSearch] = useState('')
   const [bodyParts, setBodyParts] = useState([])
   
@@ -20,15 +20,18 @@ function SearchExercises(setExercises, bodyPart, setBodyPart) {
 
   const handleSearch = async () => {
     if(search) {
-      //navigate(`/exercises/${search}`)
       const exercisesData = await fetchData(exerciseOptions.url, exerciseOptions)
-      console.log(exercisesData)
+      
+      if(!exercisesData) {
+        setExercises([])
+        return
+      }
+
       const searchedExercises = exercisesData.filter(
         (exercise) => exercise.name.toLowerCase().includes(search) || exercise.target.toLowerCase().includes(search) || exercise.equipment.toLowerCase().includes(search) || exercise.bodyPart.toLowerCase().includes(search)
       )
       setSearch('')
       setExercises(searchedExercises)
-      navigate(`/exercises/${searchedExercises}`)
     }
   }   
   
@@ -40,13 +43,16 @@ function SearchExercises(setExercises, bodyPart, setBodyPart) {
       </Typography>
       <Box position="relative" mb="72px">
         <TextField
-        sx={{input: {fontWeight: '700', border: 'none', borderRadius: '4px', outline: 'none', px: '14px', py: '11px', color: '#3A1212'}, width: {lg: '800px', xs: '350px'}}}
+        sx={{
+          input: {fontWeight: '700', border: 'none', borderRadius: '4px', outline: 'none', px: '14px', py: '11px', color: '#3A1212'}, 
+          width: {lg: '800px', xs: '350px'},
+          backgroundColor: '#fff',
+          borderRadius: '4px'
+        }}
         placeholder="Search Exercises"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         height="76px"
-        backgroundColor="#fff"
-        borderRadius="4px"
         />
         <Button className="search-btn" sx={{backgroundColor: '#FF2625', color: '#fff', textTransform: 'none', width: {lg: '173px', xs: '80px'}, fontSize: {lg: '20px', xs: '14px'}, height: '56px', position: 'absolute', right: '0px', top: '0px'}}
          onClick={handleSearch}

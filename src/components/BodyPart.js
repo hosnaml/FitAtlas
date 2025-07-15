@@ -1,10 +1,10 @@
 import React from 'react'
-import {Box, Typography, stack} from '@mui/material'
+import {Box, Typography, Stack} from '@mui/material'
 import Icon from '../assets/icons/gym.png'
 
 function BodyPart({item, bodyPart, setBodyPart}) {
   return (
-    <stack
+    <Stack
         type="button"
         alignItems="center"
         justifyContent="center"
@@ -25,7 +25,7 @@ function BodyPart({item, bodyPart, setBodyPart}) {
     >
         <img src={Icon} alt="dumbbell" style={{width: '40px', height: '40px'}}/>
         <Typography fontSize="24px" fontWeight="bold" color="#3A1212" textTransform="capitalize">{item}</Typography>
-    </stack>
+    </Stack>
   )
 }
 
