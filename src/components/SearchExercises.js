@@ -10,9 +10,14 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   useEffect(() => {
     const fetchExercisesData = async () => {
-      const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions);
+      try {
+        const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions);
 
-      setBodyParts(['all', ...bodyPartsData]);
+        setBodyParts(['all', ...(bodyPartsData || [])]);
+      } catch (error) {
+        console.error('Failed to fetch body parts:', error);
+        setBodyParts(['all']); 
+      }
     };
 
     fetchExercisesData();
@@ -20,8 +25,15 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   const handleSearch = async () => {
     if (search) {
-      const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
-      const searchedExercises = exercisesData.filter(
+      try {
+        const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
+        
+        if (!exercisesData || !Array.isArray(exercisesData)) {
+          setExercises([]);
+          return;
+        }
+        
+        const searchedExercises = exercisesData.filter(
         (item) => {
           const searchLower = search.toLowerCase();
           
@@ -31,24 +43,22 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           const equipmentMatch = item.equipment.toLowerCase().includes(searchLower);
           const bodyPartMatch = item.bodyPart.toLowerCase().includes(searchLower);
           
-          // Enhanced search - search in more fields
+
           const difficultyMatch = item.difficulty?.toLowerCase().includes(searchLower);
           const categoryMatch = item.category?.toLowerCase().includes(searchLower);
           
-          // Search in secondary muscles array
+
           const secondaryMuscleMatch = item.secondaryMuscles?.some(muscle => 
             muscle.toLowerCase().includes(searchLower)
           );
           
-          // Search in instructions array (first few words of each instruction)
+    
           const instructionsMatch = item.instructions?.some(instruction => 
             instruction.toLowerCase().includes(searchLower)
           );
-          
-          // Search in description
+
           const descriptionMatch = item.description?.toLowerCase().includes(searchLower);
           
-          // Word-based search (split search term into words)
           const searchWords = searchLower.split(' ').filter(word => word.length > 0);
           const wordMatch = searchWords.some(word => 
             item.name.toLowerCase().includes(word) ||
@@ -63,9 +73,13 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         }
       );
 
-      window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
-      setSearch('');
-      setExercises(searchedExercises);
+        window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
+        setSearch('');
+        setExercises(searchedExercises);
+      } catch (error) {
+        console.error('Search failed:', error);
+        setExercises([]);
+      }
     }
   };
 
