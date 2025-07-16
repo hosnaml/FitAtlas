@@ -63,8 +63,16 @@ function Details({exerciseDetail}) {
                     </Typography>
                 </Stack>
             ))}
-            <Button variant="contained" color="error" onClick={() => {}}>
-                Watch {name} exercise video</Button>
+            <Button variant="contained" color="error" onClick={() => {
+                const videosSection = document.getElementById('exercise-videos');
+                if (videosSection) {
+                    videosSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }}>
+                Watch {name} exercise videos</Button>
         </Stack>
     </Stack>
   )
