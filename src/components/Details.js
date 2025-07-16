@@ -40,13 +40,13 @@ function Details({exerciseDetail}) {
           }}
         >
           <div style={{ fontSize: '48px', marginBottom: '10px' }}>🏋️</div>
-            <div>{name}</div>
+            <div style={{textTransform: 'capitalize'}}>{name}</div>
             <div style={{ fontSize: '12px', marginTop: '5px' }}>
             {bodyPart} • {target}
             </div>
         </div>
         <Stack sx={{gap: {lg: '35px', xs: '20px'}}}>
-            <Typography variant="h3">
+            <Typography variant="h3" textTransform="capitalize">
                 {name}
             </Typography>
             <Typography variant="h6">
