@@ -44,9 +44,10 @@ function Exercises({exercises, setExercises, bodyPart}) {
     <Box id="exercises" sx={{mt: {lg: '110px'}}} mt="50px" p="20px">
       <Typography variant="h3" mb="46px" >Showing Results</Typography>
       <Stack direction="row" sx={{gap: {lg: '110px', xs: '50px'}}} flexWrap="wrap" justifyContent="center">
-          {currentExercises.map((exercise, index) => (
-            <ExerciseCard key={index} exercise={exercise}/>
-          ))}
+          {currentExercises.map((exercise, index) => {
+            console.log('Rendering exercise:', exercise);
+            return <ExerciseCard key={index} exercise={exercise}/>
+          })}
       </Stack>
       <Stack mt="100px" alignItems="center" width="100%">
         {exercises && exercises.length > 9 && (
