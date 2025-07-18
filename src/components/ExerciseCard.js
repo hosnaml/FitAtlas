@@ -58,10 +58,10 @@ function ExerciseCard({exercise}) {
           </div>
         </div>
         <Stack>
-            <Button sx={{ml: '21px', color: '#fff', background: '#ffa9a9', fontSize: '14px', borderRadius: '20px', textTransform: 'capitalize'}}>
+            <Button sx={{ml: '21px', color: '#fff', background: '#5BA3E0', fontSize: '14px', borderRadius: '20px', textTransform: 'capitalize'}}>
                 {exercise.bodyPart}
             </Button>
-            <Button sx={{ml: '21px', color: '#fff', background: '#fcc757', fontSize: '14px', borderRadius: '20px', textTransform: 'capitalize'}}>
+            <Button sx={{ml: '21px', color: '#fff', background: '#0F4A7A', fontSize: '14px', borderRadius: '20px', textTransform: 'capitalize'}}>
                 {exercise.target}
             </Button>
         </Stack>

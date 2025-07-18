@@ -7,7 +7,7 @@ function ExerciseVideos({exerciseVideos, name}) {
   return (
     <Box id="exercise-videos" sx={{marginTop: {lg: '200px', xs: '20px'}}} p="20px">
       <Typography variant="h4" mb="33px" textAlign="center">
-        Watch <span style={{color: '#ff2625', textTransform: 'capitalize'}}>{name}</span> exercise videos
+        Watch <span style={{color: '#1E73BE', textTransform: 'capitalize'}}>{name}</span> exercise videos
       </Typography>
       <Stack sx={{flexDirection: {lg: 'row'}, gap: {lg: '110px', xs: '0'}}} justifyContent="center" flexWrap="wrap" px="40px">
         {exerciseVideos?.contents?.slice(0, 4).map((item, index) => (
