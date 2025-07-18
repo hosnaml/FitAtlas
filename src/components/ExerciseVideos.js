@@ -1,6 +1,5 @@
 import React from 'react'
 import {Box, Typography, Stack} from '@mui/material'
-import {Link} from 'react-router-dom'
 
 function ExerciseVideos({exerciseVideos, name}) {
     

@@ -1,11 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import {Button, Stack, Typography} from '@mui/material'
-import {fetchExerciseImage} from '../utils/fetchData'
 
 function ExerciseCard({exercise}) {
-  const [imageUrl, setImageUrl] = useState('')
-  const [loading, setLoading] = useState(false)
 
   // Commented out to reduce API requests and avoid rate limiting
   // useEffect(() => {

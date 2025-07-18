@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Typography, Stack} from '@mui/material'
+import {Typography, Stack} from '@mui/material'
 import Icon from '../assets/icons/gym.png'
 
 function BodyPart({item, bodyPart, setBodyPart}) {
