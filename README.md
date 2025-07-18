@@ -80,23 +80,12 @@ We welcome contributions to FitAtlas! Please follow these steps:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Team
-
-- **Development Team**: [Your Team Name]
-- **Project Manager**: [Name]
-- **UI/UX Designer**: [Name]
-
 ## 📞 Contact
 
 For questions, suggestions, or support:
 
-- Email: support@fitatlas.com
-- Twitter: [@FitAtlas](https://twitter.com/fitatlas)
-- Website: [https://fit-atlas-alpha.vercel.app/](https://fit-atlas-alpha.vercel.app/)
+- Email: hosna.m214@gmail.com
+- Website: [[https://www.hosnamolavi.com/portfolio](https://www.hosnamolavi.com/portfolio)
 
 ## 🔄 Version History
 
@@ -126,6 +115,6 @@ For questions, suggestions, or support:
 
 ---
 
-**Made with ❤️ by the FitAtlas Team**
+**Made by Hosna Molavi**
 
 *Find your perfect gym, anywhere, anytime.*
